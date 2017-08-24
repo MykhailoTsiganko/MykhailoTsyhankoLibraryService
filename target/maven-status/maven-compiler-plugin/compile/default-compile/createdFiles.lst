@@ -1,0 +1,4 @@
+com\epam\lab\dao\BookDAO.class
+com\epam\lab\bo\BookBO.class
+com\epam\lab\model\Book.class
+com\epam\lab\utills\CSVBookManager.class

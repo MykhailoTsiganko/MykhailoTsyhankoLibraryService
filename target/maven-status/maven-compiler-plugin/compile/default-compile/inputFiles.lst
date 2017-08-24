@@ -1,0 +1,11 @@
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\bo\BookBO.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\dao\BookDAO.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\web\soap\exeption\ServiceException.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\web\soap\LibraryServiceImpl.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\web\rest\LibraryServiceImpl.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\model\Book.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\web\fault\FaultMessage.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\web\rest\LibraryService.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\web\soap\LibraryService.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\web\fault\ServiceFaultInfo.java
+E:\workspace\MykhailoTsyhankoLibraryService\src\main\java\com\epam\lab\utills\CSVBookManager.java
