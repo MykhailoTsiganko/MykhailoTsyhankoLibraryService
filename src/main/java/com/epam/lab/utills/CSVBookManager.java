@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVBookManager {
-    public static String[] headers = {"Name", "Author", "Genre"};
+    public static String[] HEADERS = {"Name", "Author", "Genre"};
 
+    /**
+     * Method is handel csv file encoding issue
+     */
     private static InputStreamReader newReader(final InputStream inputStream) {
         return new InputStreamReader(new BOMInputStream(inputStream), StandardCharsets.UTF_8);
     }
@@ -22,10 +25,8 @@ public class CSVBookManager {
         List<Book> list = new ArrayList<>();
         InputStream in = null;
         try {
-
             in = new FileInputStream(file);
-
-            Iterable<CSVRecord> parser = CSVFormat.DEFAULT.withHeader(headers).withSkipHeaderRecord(true).parse(newReader(in));
+            Iterable<CSVRecord> parser = CSVFormat.DEFAULT.withHeader(HEADERS).withSkipHeaderRecord(true).parse(newReader(in));
 
             for (CSVRecord record : parser) {
                 list.add(new Book(record.get("Name"), record.get("Author"), record.get("Genre")));
@@ -46,24 +47,17 @@ public class CSVBookManager {
     public static void writeBooks(List<Book> bookList, File file) {
         Writer out = null;
         CSVPrinter csvFilePrinter = null;
-
         CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n").withNullString("");
 
         try {
-             out = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(file), "UTF-8"));
+             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
 
             csvFilePrinter = new CSVPrinter(out, csvFileFormat);
 
-            csvFilePrinter.printRecord(headers);
+            csvFilePrinter.printRecord(HEADERS);
 
             for (Book book : bookList) {
-                List list = new ArrayList();
-                list.add(book.getName());
-                list.add(book.getAuthorName());
-                list.add(book.getGenre());
-                csvFilePrinter.printRecord(list);
-               // csvFilePrinter.printRecord(book.getName(),book.getAuthorName(),book.getGenre());
+                csvFilePrinter.printRecord(book.getName(),book.getAuthorName(),book.getGenre());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,10 +72,4 @@ public class CSVBookManager {
         }
     }
 
-    public static void main(String[] args) {
-        List<Book> list = readBooks(new File("src/main/resources/books.csv"));
-        System.out.println(list.toString());
-        list.add(new Book("Мішпіваі", "-----------------------", "+++++++++++++++++++++++++++++"));
-        writeBooks(list, new File("src/main/resources/books.csv"));
-    }
 }

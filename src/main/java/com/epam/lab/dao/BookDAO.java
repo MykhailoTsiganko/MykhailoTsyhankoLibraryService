@@ -37,15 +37,13 @@ public class BookDAO {
         LOGGER.info("insertBook method");
         List<Book> bookList = CSVBookManager.readBooks(new File(BOOK_URI));
 
-
-        if(bookList.contains(book)) {
-            return false;
-        } else {
+        boolean swapped = bookList.contains(book);
+        if(swapped){
             bookList.add(book);
             CSVBookManager.writeBooks(bookList,new File(BOOK_URI));
-            return true;
         }
 
+        return swapped;
     }
 
     public static boolean deleteBook(String name) {
@@ -63,7 +61,6 @@ public class BookDAO {
                 swapped = true;
                 break;
             }
-
         }
 
         return swapped;

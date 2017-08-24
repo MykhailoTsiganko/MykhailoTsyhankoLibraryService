@@ -2,11 +2,13 @@ package com.epam.lab.web.fault;
 
 
 public enum FaultMessage {
-    NO_BOOK_WITH_NAME("There are no book with  name [%s]"), NOT_ENOUGH_BOOKS_OF_AUTHOR("There ara only [%d] books of [%s] but required [%d]");
+    NO_BOOK_WITH_NAME("There is no book with  name [%s]"),
+    NOT_ENOUGH_BOOKS_OF_AUTHOR("There are only [%d] books of [%s], but required [%d]"),
+    SUCH_BOOK_ALREADY_EXIST("[%s] book already exist");
 
     private String messageExpression;
-    private FaultMessage(String messageExpression) {
-        this.messageExpression = messageExpression;
+    private FaultMessage(String message) {
+        this.messageExpression = message;
     }
     public String getMessageExpression(){
         return this.messageExpression;

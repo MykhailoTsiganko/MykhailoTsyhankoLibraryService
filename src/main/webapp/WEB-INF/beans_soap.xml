@@ -9,8 +9,8 @@
         <import resource="classpath:META-INF/cxf/cxf.xml" />
 
         <jaxws:endpoint
-                id="libraryService"
+                id="librarySOAP"
                 implementor="com.epam.lab.web.soap.LibraryServiceImpl"
-                address="/libraryService" />
+                address="/librarySOAP" />
           
 </beans>

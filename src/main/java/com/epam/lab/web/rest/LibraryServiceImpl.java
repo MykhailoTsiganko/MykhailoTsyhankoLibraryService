@@ -28,6 +28,7 @@ public class LibraryServiceImpl implements LibraryService {
 
         if (Objects.isNull(book)) {
             ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NO_BOOK_WITH_NAME, name);
+            LOGGER.warn(faultInfo.getMessage());
 
             response = Response.status(Response.Status.NOT_FOUND).entity(faultInfo).build();
         } else {
@@ -38,10 +39,19 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Response turnBackBook(Book book) {
+    public Response addBook(Book book) {
+        Response response;
         BookBO bookBO = new BookBO();
+        if(bookBO.addBook(book)) {
+            response = Response.ok().build();
+        } else {
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST,book);
+            LOGGER.warn(faultInfo.getMessage());
 
-        return Response.ok().entity(bookBO.addBook(book)).build();
+            response = Response.status(Response.Status.NOT_ACCEPTABLE).entity(faultInfo).build();
+        }
+
+        return response;
     }
 
     @Override
@@ -52,8 +62,9 @@ public class LibraryServiceImpl implements LibraryService {
 
         if (Objects.isNull(requiredBook)) {
             ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NO_BOOK_WITH_NAME, requiredBookName);
+            LOGGER.warn(faultInfo.getMessage());
 
-            response = Response.status(Response.Status.NOT_FOUND).entity(faultInfo).build();
+            response = Response.status(Response.Status.NOT_ACCEPTABLE).entity(faultInfo).build();
         } else {
             bookBO.addBook(book);
             response = Response.ok().entity(requiredBook).build();
@@ -70,8 +81,9 @@ public class LibraryServiceImpl implements LibraryService {
 
         if (authorBookList.size() < number) {
             ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NOT_ENOUGH_BOOKS_OF_AUTHOR, authorBookList.size() + 1, authorName, number);
+            LOGGER.warn(faultInfo.getMessage());
 
-            response = Response.status(Response.Status.NOT_FOUND).entity(faultInfo).build();
+            response = Response.status(Response.Status.NOT_ACCEPTABLE).entity(faultInfo).build();
         } else {
             response = Response.ok().entity(authorBookList.subList(0, number)).build();
         }

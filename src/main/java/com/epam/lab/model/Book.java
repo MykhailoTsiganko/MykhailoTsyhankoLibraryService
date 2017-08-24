@@ -20,8 +20,6 @@ public class Book implements Serializable{
         this.genre = genre;
     }
 
-    public Book(){}
-
     public String getName() {
         return name;
     }

@@ -7,14 +7,14 @@ import javax.jws.WebService;
 import java.util.List;
 
 @WebService
-public interface LibraryService {
-    public List<Book> getAllBooks();
+interface LibraryService {
+    List<Book> getAllBooks();
 
-    public Book getBook(String name) throws ServiceException;
+    Book getBook(String name) throws ServiceException;
 
-    public boolean turnBackBook(Book book);
+    boolean addBook(Book book) throws ServiceException;
 
-    public Book exchangeBook(Book book, String requiredBookName) throws ServiceException;
+    Book exchangeBook(Book book, String requiredBookName) throws ServiceException;
 
-    public List<Book> getAuthorBooks(String authorName, int number)  throws ServiceException;
+    List<Book> getAuthorBooks(String authorName, int number)  throws ServiceException;
 }

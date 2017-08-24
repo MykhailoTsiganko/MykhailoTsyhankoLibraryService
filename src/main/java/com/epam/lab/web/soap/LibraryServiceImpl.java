@@ -8,7 +8,6 @@ import com.epam.lab.web.soap.exeption.ServiceException;
 import org.apache.log4j.Logger;
 
 import javax.jws.WebService;
-import javax.ws.rs.core.Response.Status;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,10 +37,14 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public boolean turnBackBook(Book book) {
+    public boolean addBook(Book book) throws ServiceException {
         BookBO bookBO = new BookBO();
-
-        return bookBO.addBook(book);
+        if(!bookBO.addBook(book)) {
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST,book);
+            LOGGER.warn(faultInfo.getMessage());
+            throw new ServiceException(faultInfo);
+        }
+        return true;
     }
 
     @Override
