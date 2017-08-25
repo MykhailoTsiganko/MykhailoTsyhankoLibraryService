@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 public class BookDAO {
     public static final String BOOK_URI = "src/main/resources/books.csv";
@@ -37,13 +38,14 @@ public class BookDAO {
         LOGGER.info("insertBook method");
         List<Book> bookList = CSVBookManager.readBooks(new File(BOOK_URI));
 
-        boolean swapped = bookList.contains(book);
-        if(swapped){
+        boolean isPresent = bookList.contains(book);
+        if(!isPresent){
             bookList.add(book);
             CSVBookManager.writeBooks(bookList,new File(BOOK_URI));
+            return true;
+        } else {
+            return false;
         }
-
-        return swapped;
     }
 
     public static boolean deleteBook(String name) {
@@ -52,14 +54,15 @@ public class BookDAO {
 
         ListIterator<Book> it = bookList.listIterator();
         boolean swapped = false;
-
-        while(it.hasNext()) {
-            Book book = it.next();
-            if(book.getName().equals(name)) {
-                it.remove();
-                CSVBookManager.writeBooks(bookList,new File(BOOK_URI));
-                swapped = true;
-                break;
+        if(!Objects.isNull(findByName(name))) {
+            while (it.hasNext()) {
+                Book book = it.next();
+                if (book.getName().equals(name)) {
+                    it.remove();
+                    CSVBookManager.writeBooks(bookList, new File(BOOK_URI));
+                    swapped = true;
+                    break;
+                }
             }
         }
 

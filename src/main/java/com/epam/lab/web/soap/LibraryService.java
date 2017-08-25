@@ -14,6 +14,8 @@ interface LibraryService {
 
     boolean addBook(Book book) throws ServiceException;
 
+    boolean removeBook(String name) throws ServiceException;
+
     Book exchangeBook(Book book, String requiredBookName) throws ServiceException;
 
     List<Book> getAuthorBooks(String authorName, int number)  throws ServiceException;

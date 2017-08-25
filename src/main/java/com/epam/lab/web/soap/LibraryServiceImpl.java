@@ -39,11 +39,25 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public boolean addBook(Book book) throws ServiceException {
         BookBO bookBO = new BookBO();
-        if(!bookBO.addBook(book)) {
-            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST,book);
+        if (!bookBO.addBook(book)) {
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST, book);
             LOGGER.warn(faultInfo.getMessage());
             throw new ServiceException(faultInfo);
         }
+
+        return true;
+    }
+
+    @Override
+    public boolean removeBook(String name) throws ServiceException {
+        BookBO bookBO = new BookBO();
+        if(!bookBO.removeBook(name)) {
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NO_BOOK_WITH_NAME, name);
+
+            LOGGER.warn(faultInfo.getMessage());
+            throw new ServiceException(faultInfo);
+        }
+
         return true;
     }
 
@@ -57,8 +71,16 @@ public class LibraryServiceImpl implements LibraryService {
 
             LOGGER.warn(faultInfo.getMessage());
             throw new ServiceException(faultInfo);
+        } else {
+            if (Objects.isNull(bookBO.getBook(book.getName()))) {
+                bookBO.addBook(book);
+            } else {
+                ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST, book);
+
+                LOGGER.warn(faultInfo.getMessage());
+                throw new ServiceException(faultInfo);
+            }
         }
-        bookBO.addBook(book);
 
         return requiredBook;
     }
@@ -69,7 +91,7 @@ public class LibraryServiceImpl implements LibraryService {
         List<Book> authorBookList = bookBO.getBooksByAuthorName(authorName);
 
         if (authorBookList.size() < number) {
-            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NOT_ENOUGH_BOOKS_OF_AUTHOR, authorBookList.size() + 1, authorName, number);
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NOT_ENOUGH_BOOKS_OF_AUTHOR, authorBookList.size(), authorName, number);
             LOGGER.warn(faultInfo.getMessage());
             throw new ServiceException(faultInfo);
         }

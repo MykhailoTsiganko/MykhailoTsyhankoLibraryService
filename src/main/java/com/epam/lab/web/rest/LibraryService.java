@@ -4,6 +4,7 @@ package com.epam.lab.web.rest;
 
 
 import com.epam.lab.model.Book;
+import com.epam.lab.web.soap.exeption.ServiceException;
 
 import javax.ws.rs.*;
 
@@ -21,11 +22,12 @@ public interface LibraryService {
 
     @GET
     @Path("/book/{bookName}")
+    @Consumes("text/plain; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
     Response getBook(@PathParam("bookName") String name);
 
     @POST
-    @Path("/addBook")
+    @Path("/book")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces("application/json; charset=UTF-8")
     Response addBook(Book book);
@@ -37,7 +39,14 @@ public interface LibraryService {
     Response exchangeBook(Book book, @PathParam("bookName") String requiredBookName);
 
     @GET
-    @Path("/books/author/{author}/{number}")
+    @Path("/books/authors/{author}/{number}")
     @Produces("application/json; charset=UTF-8")
     Response getAuthorBooks(@PathParam("author") String authorName, @PathParam("number") int number);
+
+    @DELETE
+    @Path("/book")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/json; charset=UTF-8")
+    Response removeBook(String name) throws ServiceException;
+
 }

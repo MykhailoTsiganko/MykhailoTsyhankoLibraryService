@@ -7,6 +7,7 @@ public class ServiceFaultInfo {
         setMessage(String.format(expression.getMessageExpression(), args));
 
     }
+    public ServiceFaultInfo(){}
 
     public String getMessage() {
         return message;

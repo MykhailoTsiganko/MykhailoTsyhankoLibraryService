@@ -57,7 +57,7 @@ public class CSVBookManager {
             csvFilePrinter.printRecord(HEADERS);
 
             for (Book book : bookList) {
-                csvFilePrinter.printRecord(book.getName(),book.getAuthorName(),book.getGenre());
+                csvFilePrinter.printRecord(book.getName(),book.getAuthor(),book.getGenre());
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -9,16 +9,19 @@ public class Book implements Serializable{
     private String name;
 
 
-    private String authorName;
+    private String author;
 
 
     private String genre;
 
-    public Book(String name, String authorName, String genre) {
+    public Book(String name, String author, String genre) {
         this.name = name;
-        this.authorName = authorName;
+        this.author = author;
         this.genre = genre;
     }
+
+    public Book() {}
+    
 
     public String getName() {
         return name;
@@ -28,12 +31,12 @@ public class Book implements Serializable{
         this.name = name;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getGenre() {
@@ -52,7 +55,7 @@ public class Book implements Serializable{
         Book book = (Book) o;
 
         if (getName() != null ? !getName().equals(book.getName()) : book.getName() != null) return false;
-        if (getAuthorName() != null ? !getAuthorName().equals(book.getAuthorName()) : book.getAuthorName() != null)
+        if (getAuthor() != null ? !getAuthor().equals(book.getAuthor()) : book.getAuthor() != null)
             return false;
         return getGenre() != null ? getGenre().equals(book.getGenre()) : book.getGenre() == null;
     }
@@ -60,7 +63,7 @@ public class Book implements Serializable{
     @Override
     public int hashCode() {
         int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getAuthorName() != null ? getAuthorName().hashCode() : 0);
+        result = 31 * result + (getAuthor() != null ? getAuthor().hashCode() : 0);
         result = 31 * result + (getGenre() != null ? getGenre().hashCode() : 0);
         return result;
     }
@@ -69,7 +72,7 @@ public class Book implements Serializable{
     public String toString() {
         return "Book{" +
                 "name='" + name + '\'' +
-                ", authorName='" + authorName + '\'' +
+                ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' +
                 '}';
     }

@@ -4,6 +4,7 @@ import com.epam.lab.bo.BookBO;
 import com.epam.lab.model.Book;
 import com.epam.lab.web.fault.FaultMessage;
 import com.epam.lab.web.fault.ServiceFaultInfo;
+import com.epam.lab.web.soap.exeption.ServiceException;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.core.Response;
@@ -40,12 +41,13 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Response addBook(Book book) {
+        LOGGER.info("addBook method");
         Response response;
         BookBO bookBO = new BookBO();
         if(bookBO.addBook(book)) {
             response = Response.ok().build();
         } else {
-            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST,book);
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST,book.getName());
             LOGGER.warn(faultInfo.getMessage());
 
             response = Response.status(Response.Status.NOT_ACCEPTABLE).entity(faultInfo).build();
@@ -66,8 +68,15 @@ public class LibraryServiceImpl implements LibraryService {
 
             response = Response.status(Response.Status.NOT_ACCEPTABLE).entity(faultInfo).build();
         } else {
-            bookBO.addBook(book);
-            response = Response.ok().entity(requiredBook).build();
+            if(Objects.isNull(bookBO.getBook(book.getName()))){
+                bookBO.addBook(book);
+                response = Response.ok().entity(requiredBook).build();
+            } else {
+                ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NO_BOOK_WITH_NAME, book.getName());
+                LOGGER.warn(faultInfo.getMessage());
+
+                response = Response.status(Response.Status.NOT_FOUND).entity(faultInfo).build();
+            }
         }
 
         return response;
@@ -80,13 +89,30 @@ public class LibraryServiceImpl implements LibraryService {
         List<Book> authorBookList = bookBO.getBooksByAuthorName(authorName);
 
         if (authorBookList.size() < number) {
-            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NOT_ENOUGH_BOOKS_OF_AUTHOR, authorBookList.size() + 1, authorName, number);
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NOT_ENOUGH_BOOKS_OF_AUTHOR, authorBookList.size(), authorName, number);
             LOGGER.warn(faultInfo.getMessage());
 
             response = Response.status(Response.Status.NOT_ACCEPTABLE).entity(faultInfo).build();
         } else {
             response = Response.ok().entity(authorBookList.subList(0, number)).build();
         }
+
+        return response;
+    }
+
+    @Override
+    public Response removeBook(String name){
+        Response response;
+        BookBO bookBO = new BookBO();
+        if(!bookBO.removeBook(name)) {
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NO_BOOK_WITH_NAME, name);
+
+            LOGGER.warn(faultInfo.getMessage());
+            response = Response.status(Response.Status.NOT_FOUND).entity(faultInfo).build();
+        } else {
+            response = Response.ok().build();
+        }
+
 
         return response;
     }
