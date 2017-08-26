@@ -4,7 +4,6 @@ import com.epam.lab.bo.BookBO;
 import com.epam.lab.model.Book;
 import com.epam.lab.web.fault.FaultMessage;
 import com.epam.lab.web.fault.ServiceFaultInfo;
-import com.epam.lab.web.soap.exeption.ServiceException;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.core.Response;
@@ -16,6 +15,7 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Response getAllBooks() {
+        LOGGER.info("getAllBooks method");
         BookBO bookBO = new BookBO();
 
         return Response.ok().entity(bookBO.getAllBooks()).build();
@@ -23,6 +23,7 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Response getBook(String name) {
+        LOGGER.info("getBook method");
         Response response;
         BookBO bookBO = new BookBO();
         Book book = bookBO.getBook(name);
@@ -33,6 +34,7 @@ public class LibraryServiceImpl implements LibraryService {
 
             response = Response.status(Response.Status.NOT_FOUND).entity(faultInfo).build();
         } else {
+            LOGGER.info("method result:" + book);
             response = Response.ok().entity(book).build();
         }
 
@@ -44,10 +46,10 @@ public class LibraryServiceImpl implements LibraryService {
         LOGGER.info("addBook method");
         Response response;
         BookBO bookBO = new BookBO();
-        if(bookBO.addBook(book)) {
+        if (bookBO.addBook(book)) {
             response = Response.ok().build();
         } else {
-            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST,book.getName());
+            ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST, book.getName());
             LOGGER.warn(faultInfo.getMessage());
 
             response = Response.status(Response.Status.NOT_ACCEPTABLE).entity(faultInfo).build();
@@ -57,7 +59,8 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Response exchangeBook(Book book, String requiredBookName){
+    public Response exchangeBook(Book book, String requiredBookName) {
+        LOGGER.info("exchangeBook method");
         Response response;
         BookBO bookBO = new BookBO();
         Book requiredBook = bookBO.getBook(requiredBookName);
@@ -68,7 +71,7 @@ public class LibraryServiceImpl implements LibraryService {
 
             response = Response.status(Response.Status.NOT_ACCEPTABLE).entity(faultInfo).build();
         } else {
-            if(Objects.isNull(bookBO.getBook(book.getName()))){
+            if (Objects.isNull(bookBO.getBook(book.getName()))) {
                 bookBO.addBook(book);
                 response = Response.ok().entity(requiredBook).build();
             } else {
@@ -84,6 +87,7 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Response getAuthorBooks(String authorName, int number) {
+        LOGGER.info("getAuthorBooks");
         Response response;
         BookBO bookBO = new BookBO();
         List<Book> authorBookList = bookBO.getBooksByAuthorName(authorName);
@@ -101,10 +105,12 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Response removeBook(String name){
+    public Response removeBook(String name) {
+        LOGGER.info("removeBook method");
         Response response;
         BookBO bookBO = new BookBO();
-        if(!bookBO.removeBook(name)) {
+
+        if (!bookBO.removeBook(name)) {
             ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NO_BOOK_WITH_NAME, name);
 
             LOGGER.warn(faultInfo.getMessage());
@@ -112,7 +118,6 @@ public class LibraryServiceImpl implements LibraryService {
         } else {
             response = Response.ok().build();
         }
-
 
         return response;
     }

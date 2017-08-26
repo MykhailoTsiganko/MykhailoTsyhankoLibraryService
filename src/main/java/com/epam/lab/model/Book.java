@@ -4,13 +4,11 @@ package com.epam.lab.model;
 import java.io.Serializable;
 
 
-public class Book implements Serializable{
+public class Book implements Serializable {
 
     private String name;
 
-
     private String author;
-
 
     private String genre;
 
@@ -20,8 +18,8 @@ public class Book implements Serializable{
         this.genre = genre;
     }
 
-    public Book() {}
-    
+    public Book() {
+    }
 
     public String getName() {
         return name;

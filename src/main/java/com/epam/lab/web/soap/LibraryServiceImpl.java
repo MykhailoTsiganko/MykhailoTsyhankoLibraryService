@@ -17,12 +17,14 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public List<Book> getAllBooks() {
+        LOGGER.info("getAllBooks method");
         BookBO bookBO = new BookBO();
         return bookBO.getAllBooks();
     }
 
     @Override
     public Book getBook(String name) throws ServiceException {
+        LOGGER.info("getBook method");
         BookBO bookBO = new BookBO();
 
         Book book = bookBO.getBook(name);
@@ -33,11 +35,13 @@ public class LibraryServiceImpl implements LibraryService {
             throw new ServiceException(faultInfo);
         }
 
+        LOGGER.info("getBook result:" + book);
         return book;
     }
 
     @Override
     public boolean addBook(Book book) throws ServiceException {
+        LOGGER.info("addBook method");
         BookBO bookBO = new BookBO();
         if (!bookBO.addBook(book)) {
             ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.SUCH_BOOK_ALREADY_EXIST, book);
@@ -45,24 +49,29 @@ public class LibraryServiceImpl implements LibraryService {
             throw new ServiceException(faultInfo);
         }
 
+        LOGGER.info("addBook result:" + true);
         return true;
     }
 
     @Override
     public boolean removeBook(String name) throws ServiceException {
+        LOGGER.info("removeBook method");
+
         BookBO bookBO = new BookBO();
-        if(!bookBO.removeBook(name)) {
+        if (!bookBO.removeBook(name)) {
             ServiceFaultInfo faultInfo = new ServiceFaultInfo(FaultMessage.NO_BOOK_WITH_NAME, name);
 
             LOGGER.warn(faultInfo.getMessage());
             throw new ServiceException(faultInfo);
         }
 
+        LOGGER.info("removeBook result:" + true);
         return true;
     }
 
     @Override
     public Book exchangeBook(Book book, String requiredBookName) throws ServiceException {
+        LOGGER.info("exchangeBook method");
         BookBO bookBO = new BookBO();
         Book requiredBook = bookBO.getBook(requiredBookName);
 
@@ -82,11 +91,13 @@ public class LibraryServiceImpl implements LibraryService {
             }
         }
 
+        LOGGER.info("exchangeBook result:" + requiredBookName);
         return requiredBook;
     }
 
     @Override
     public List<Book> getAuthorBooks(String authorName, int number) throws ServiceException {
+        LOGGER.info("getAuthorBooks method");
         BookBO bookBO = new BookBO();
         List<Book> authorBookList = bookBO.getBooksByAuthorName(authorName);
 

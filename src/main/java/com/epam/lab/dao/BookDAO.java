@@ -10,22 +10,21 @@ import java.util.ListIterator;
 import java.util.Objects;
 
 public class BookDAO {
-    public static final String BOOK_URI = "src/main/resources/books.csv";
-
+    public static final String BOOK_URl = "src/main/resources/books.csv";
     private static Logger LOGGER = Logger.getLogger(BookDAO.class);
 
-
     public static List<Book> findAll() {
-        return CSVBookManager.readBooks(new File(BOOK_URI));
+        return CSVBookManager.readBooks(new File(BOOK_URl));
     }
 
     public static Book findByName(String name) {
         LOGGER.info("findByName method");
-        List<Book> bookList = CSVBookManager.readBooks(new File(BOOK_URI));
+        List<Book> bookList = CSVBookManager.readBooks(new File(BOOK_URl));
         Book myBook = null;
-        for(Book book :bookList) {
-            if(book.getName().equals(name)) {
-                myBook=  book;
+
+        for (Book book : bookList) {
+            if (book.getName().equals(name)) {
+                myBook = book;
                 break;
             }
         }
@@ -33,33 +32,34 @@ public class BookDAO {
         return myBook;
     }
 
-
     public static boolean insertBook(Book book) {
         LOGGER.info("insertBook method");
-        List<Book> bookList = CSVBookManager.readBooks(new File(BOOK_URI));
+        List<Book> bookList = CSVBookManager.readBooks(new File(BOOK_URl));
+        boolean isAdded;
 
-        boolean isPresent = bookList.contains(book);
-        if(!isPresent){
+        if (!bookList.contains(book)) {
             bookList.add(book);
-            CSVBookManager.writeBooks(bookList,new File(BOOK_URI));
-            return true;
+            CSVBookManager.writeBooks(bookList, new File(BOOK_URl));
+            isAdded = true;
         } else {
-            return false;
+            isAdded = false;
         }
+
+        return isAdded;
     }
 
     public static boolean deleteBook(String name) {
         LOGGER.info("deleteBook method");
-        List<Book> bookList = CSVBookManager.readBooks(new File(BOOK_URI));
-
+        List<Book> bookList = CSVBookManager.readBooks(new File(BOOK_URl));
         ListIterator<Book> it = bookList.listIterator();
         boolean swapped = false;
-        if(!Objects.isNull(findByName(name))) {
+
+        if (!Objects.isNull(findByName(name))) {
             while (it.hasNext()) {
                 Book book = it.next();
                 if (book.getName().equals(name)) {
                     it.remove();
-                    CSVBookManager.writeBooks(bookList, new File(BOOK_URI));
+                    CSVBookManager.writeBooks(bookList, new File(BOOK_URl));
                     swapped = true;
                     break;
                 }

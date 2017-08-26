@@ -17,18 +17,19 @@ public class BookBO {
         return BookDAO.findByName(name);
     }
 
-    public List<Book> getBooksByAuthorName(String authorName){
+    public List<Book> getBooksByAuthorName(String authorName) {
         List<Book> bookList = getAllBooks();
         List<Book> authorBookList = new ArrayList<>();
-        for(int i = 0; i < bookList.size();i++) {
-            if(bookList.get(i).getAuthor().equals(authorName)){
+        for (int i = 0; i < bookList.size(); i++) {
+            if (bookList.get(i).getAuthor().equals(authorName)) {
                 authorBookList.add(bookList.get(i));
             }
         }
-        return  authorBookList;
+
+        return authorBookList;
     }
 
-    public boolean addBook(Book book){
+    public boolean addBook(Book book) {
         return BookDAO.insertBook(book);
     }
 

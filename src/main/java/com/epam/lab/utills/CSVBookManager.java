@@ -50,14 +50,14 @@ public class CSVBookManager {
         CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n").withNullString("");
 
         try {
-             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
 
             csvFilePrinter = new CSVPrinter(out, csvFileFormat);
 
             csvFilePrinter.printRecord(HEADERS);
 
             for (Book book : bookList) {
-                csvFilePrinter.printRecord(book.getName(),book.getAuthor(),book.getGenre());
+                csvFilePrinter.printRecord(book.getName(), book.getAuthor(), book.getGenre());
             }
         } catch (IOException e) {
             e.printStackTrace();

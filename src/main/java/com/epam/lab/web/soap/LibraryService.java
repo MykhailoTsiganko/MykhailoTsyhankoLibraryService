@@ -18,5 +18,5 @@ interface LibraryService {
 
     Book exchangeBook(Book book, String requiredBookName) throws ServiceException;
 
-    List<Book> getAuthorBooks(String authorName, int number)  throws ServiceException;
+    List<Book> getAuthorBooks(String authorName, int number) throws ServiceException;
 }

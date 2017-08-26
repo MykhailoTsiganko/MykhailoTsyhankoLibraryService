@@ -7,10 +7,12 @@ public enum FaultMessage {
     SUCH_BOOK_ALREADY_EXIST("[%s] book already exist");
 
     private String messageExpression;
+
     private FaultMessage(String message) {
         this.messageExpression = message;
     }
-    public String getMessageExpression(){
+
+    public String getMessageExpression() {
         return this.messageExpression;
     }
 }
