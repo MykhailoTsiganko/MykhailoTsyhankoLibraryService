@@ -1,23 +1,28 @@
 Name,Author,Genre
-The Pilgrim’s Progress,John Bunyan,Ganre1
-Robinson Crusoe,Daniel Defoe,Ganre1
-Gulliver’s Travels,Jonathan Swift,Ganre1
-Clarissa, Samuel Richardson,Ganre1
-Tom Jones,Henry Fielding,Ganre1
-The Life, Opinions of Tristram Shandy,Ganre1
-Gentleman,Laurence Sterne,Ganre1
-Emma,Jane Austen,Ganre1
-Frankenstein,Mary Shelley ,Ganre1
-Nightmare Abbey,Thomas Love Peacock,Ganre1
-The Narrative of Arthur Gordon Pym of Nantucket,Edgar Allan Poe,Ganre1
-Sybil,Benjamin Disraeli,Ganre1
-The Picture of Dorian Gray,Oscar Wilde,Ganre1
-New Grub Street,George Gissing,Ganre1
-Jude the Obscure,Thomas Hardy,Ganre1
-The Red Badge of Courage,Stephen Crane,Ganre1
-Dracula, Bram Stoker,Ganre1
-Heart of Darkness,Joseph Conrad,Ganre1
-Sister Carrie,Theodore Dreiser,Ganre1
-Kim,Rudyard Kipling,Ganre1
-The Call of the Wild,Jack London,Ganre1
-The Golden Bow,Henry James,Ganre1
+The Pilgrim’s Progress,John Bunyan,genre1
+Robinson Crusoe,Daniel Defoe,genre1
+Memoirs of a Cavalier,Daniel Defoe,genre1
+Captain Singleton,Daniel Defoe,genre1
+A Journal of the Plague Year,Daniel Defoe,genre1
+Moll Flanders,Daniel Defoe,genre1
+The Fortunate Mistress,Daniel Defoe,genre1
+Gulliver’s Travels,Jonathan Swift,genre1
+Clarissa," Samuel Richardson",genre1
+Tom Jones,Henry Fielding,genre1
+The Life," Opinions of Tristram Shandy",genre1
+Gentleman,Laurence Sterne,genre1
+Emma,Jane Austen,genre1
+Frankenstein,"Mary Shelley ",genre1
+Nightmare Abbey,Thomas Love Peacock,genre1
+The Narrative of Arthur Gordon Pym of Nantucket,Edgar Allan Poe,genre1
+Sybil,Benjamin Disraeli,genre1
+The Picture of Dorian Gray,Oscar Wilde,genre1
+New Grub Street,George Gissing,genre1
+Jude the Obscure,Thomas Hardy,genre1
+The Red Badge of Courage,Stephen Crane,genre1
+Dracula," Bram Stoker",genre1
+Heart of Darkness,Joseph Conrad,genre1
+Sister Carrie,Theodore Dreiser,genre1
+Kim,Rudyard Kipling,genre1
+The Call of the Wild,Jack London,genre1
+The Golden Bow,Henry James,genre1
