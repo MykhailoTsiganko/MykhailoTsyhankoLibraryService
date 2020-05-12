@@ -1,2 +1,2 @@
 # MykhailoTsyhankoLibraryService
-To run service use "mvn tomcat:run-war]"
+To run service use "mvn tomcat:run-war"
